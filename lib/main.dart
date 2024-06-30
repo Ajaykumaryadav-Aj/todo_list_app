@@ -1,23 +1,40 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:todo_list_app/bloc/todo_bloc.dart';
+import 'package:todo_list_app/bloc/todo_event.dart';
 import 'package:todo_list_app/screens/home_screen.dart';
-import 'bloc/todo_bloc.dart';
 
-void main() {
+final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+    FlutterLocalNotificationsPlugin();
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  const AndroidInitializationSettings initializationSettingsAndroid =
+      AndroidInitializationSettings('@mipmap/ic_launcher');
+  const InitializationSettings initializationSettings =
+      InitializationSettings(android: initializationSettingsAndroid);
+
+  await flutterLocalNotificationsPlugin.initialize(initializationSettings);
+
   runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  const MyApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'ToDo App',
-      home: BlocProvider(
-        create: (context) => ToDoBloc(),
-        child: ToDoScreen(),
+    return BlocProvider(
+      create: (context) => TaskBloc()..add(LoadTasks()),
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'Todo List App',
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+        ),
+        home: const HomeScreen(),
       ),
     );
   }

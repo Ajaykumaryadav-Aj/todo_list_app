@@ -1,37 +1,30 @@
 
-import 'package:equatable/equatable.dart';
+
 import 'package:todo_list_app/models/model.dart';
 
-abstract class ToDoEvent extends Equatable {
-  const ToDoEvent();
+abstract class TaskEvent {}
 
-  @override
-  List<Object> get props => [];
+class LoadTasks extends TaskEvent {}
+
+class AddTask extends TaskEvent {
+  final Task task;
+  AddTask(this.task);
 }
 
-class AddToDo extends ToDoEvent {
-  final ToDo todo;
-
-  const AddToDo(this.todo);
-
-  @override
-  List<Object> get props => [todo];
+class RemoveTask extends TaskEvent {
+  final Task task;
+  RemoveTask(this.task);
 }
 
-class UpdateToDo extends ToDoEvent {
-  final ToDo todo;
+// class UpdateTask extends TaskEvent {
+//   final Task task;
+//   UpdateTask(this.task);
+// }
 
-  const UpdateToDo(this.todo);
+class UpdateTask extends TaskEvent {
+  final Task oldTask;
+  final Task task;
 
-  @override
-  List<Object> get props => [todo];
+  UpdateTask(this.oldTask, this.task);
 }
 
-class DeleteToDo extends ToDoEvent {
-  final String id;
-
-  const DeleteToDo(this.id);
-
-  @override
-  List<Object> get props => [id];
-}
