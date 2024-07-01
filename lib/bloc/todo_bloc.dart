@@ -1,11 +1,9 @@
-
 import 'dart:convert';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:todo_list_app/bloc/todo_event.dart';
 import 'package:todo_list_app/bloc/todo_state.dart';
 import 'package:todo_list_app/models/model.dart';
-
 
 class TaskBloc extends Bloc<TaskEvent, TaskState> {
   TaskBloc() : super(const TaskState()) {
@@ -38,14 +36,6 @@ class TaskBloc extends Bloc<TaskEvent, TaskState> {
     await _saveTasks(updatedTasks);
     emit(TaskState(tasks: updatedTasks));
   }
-
-  // Future<void> _onUpdateTask(UpdateTask event, Emitter<TaskState> emit) async {
-  //   final updatedTasks = state.tasks.map((task) {
-  //     return task.title == event.task.title ? event.task : task;
-  //   }).toList();
-  //   await _saveTasks(updatedTasks);
-  //   emit(TaskState(tasks: updatedTasks));
-  // }
 
   Future<void> _onUpdateTask(UpdateTask event, Emitter<TaskState> emit) async {
     final updatedTasks = state.tasks.map((task) {

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:todo_list_app/bloc/todo_bloc.dart';
 import 'package:todo_list_app/bloc/todo_event.dart';
 import 'package:todo_list_app/bloc/todo_state.dart';
+import 'package:todo_list_app/main.dart';
 import 'package:todo_list_app/models/model.dart';
 import 'package:todo_list_app/screens/add_task_screen.dart';
 import 'package:todo_list_app/screens/edit_task_screen.dart';
@@ -44,16 +46,45 @@ class HomeScreen extends StatelessWidget {
   }
 }
 
-class TaskTile extends StatelessWidget {
+class TaskTile extends StatefulWidget {
   final Task task;
 
   const TaskTile({Key? key, required this.task}) : super(key: key);
 
   @override
+  State<TaskTile> createState() => _TaskTileState();
+}
+
+class _TaskTileState extends State<TaskTile> {
+  Future<void> showNotification() async {
+    var androidChannelSpecifics = const AndroidNotificationDetails(
+      'CHANNEL_ID',
+      'CHANNEL_NAME'
+          "CHANNEL_DESCRIPTION",
+      importance: Importance.max,
+      priority: Priority.high,
+      playSound: true,
+      timeoutAfter: 5000,
+      styleInformation: DefaultStyleInformation(true, true),
+    );
+    // var iosChannelSpecifics = IOSNotificationDetails();
+    var platformChannelSpecifics = NotificationDetails(
+      android: androidChannelSpecifics,
+    );
+    await flutterLocalNotificationsPlugin.show(
+      0,
+      'Notification',
+      'Task deleted',
+      platformChannelSpecifics,
+      payload: 'New Payload',
+    );
+  }
+
+  @override
   Widget build(BuildContext context) {
     return ListTile(
-      title: Text(task.title),
-      subtitle: Text(task.description),
+      title: Text(widget.task.title),
+      subtitle: Text(widget.task.description),
       trailing: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -62,7 +93,7 @@ class TaskTile extends StatelessWidget {
             onPressed: () {
               Navigator.of(context).push(
                 MaterialPageRoute(
-                  builder: (context) => EditTaskScreen(task: task),
+                  builder: (context) => EditTaskScreen(task: widget.task),
                 ),
               );
             },
@@ -70,7 +101,8 @@ class TaskTile extends StatelessWidget {
           IconButton(
             icon: const Icon(Icons.delete),
             onPressed: () {
-              context.read<TaskBloc>().add(RemoveTask(task));
+              context.read<TaskBloc>().add(RemoveTask(widget.task));
+              showNotification();
             },
           ),
         ],

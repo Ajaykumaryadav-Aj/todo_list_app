@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:todo_list_app/bloc/todo_bloc.dart';
 import 'package:todo_list_app/bloc/todo_event.dart';
+import 'package:todo_list_app/main.dart';
 import 'package:todo_list_app/models/model.dart';
 
 class AddTaskScreen extends StatefulWidget {
@@ -18,6 +19,30 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
   String _description = '';
   Priority _priority = Priority.low;
   DateTime _dueDate = DateTime.now();
+
+  Future<void> showNotification() async {
+    var androidChannelSpecifics = const AndroidNotificationDetails(
+      'CHANNEL_ID',
+      'CHANNEL_NAME'
+          "CHANNEL_DESCRIPTION",
+      importance: Importance.max,
+      priority: Priority.high,
+      playSound: true,
+      timeoutAfter: 5000,
+      styleInformation: DefaultStyleInformation(true, true),
+    );
+    // var iosChannelSpecifics = IOSNotificationDetails();
+    var platformChannelSpecifics = NotificationDetails(
+      android: androidChannelSpecifics,
+    );
+    await flutterLocalNotificationsPlugin.show(
+      0, 
+      'Notification', 
+      'Task add successfully', 
+      platformChannelSpecifics,
+      payload: 'New Payload', 
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -70,7 +95,11 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                 child: const Text('Select Due Date'),
               ),
               ElevatedButton(
-                onPressed: _submitForm,
+                onPressed: () {
+                  _submitForm();
+                  _title.isNotEmpty ? showNotification() : null;
+                  _description.isNotEmpty ? showNotification() : null;
+                },
                 child: const Text('Add Task'),
               ),
             ],
