@@ -1,16 +1,24 @@
-# todo_list_app
+# Flutter To-Do List App
 
-A new Flutter project.
+A simple and intuitive to-do list application built with Flutter. This app allows you to manage your tasks efficiently with features such as task prioritization, due dates and notifications.
 
-## Getting Started
+## Features
 
-This project is a starting point for a Flutter application.
+- **Add Tasks:** Create tasks with a title, description, priority level, and due date.
+- **Edit Tasks:** Update existing tasks.
+- **Delete Tasks:** Remove tasks that are no longer needed.
+- **Task Prioritization:** Set priority levels (low, medium, high) for each task.
+- **Due Dates:** Assign due dates to tasks.
+- **Notifications:** Receive push notifications for tasks based on their add,edit and delete task.
+- **Persistence:** Tasks are saved locally using `SharedPreferences`.
 
-A few resources to get you started if this is your first Flutter project:
+## Screenshots
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+<!-- Include some screenshots of your app here -->
+![Home Screen](![Screenshot_1721120404](https://github.com/user-attachments/assets/c90cf860-1e56-4be6-b287-016190e8410e)
+)
+![Add Task Screen](![Screenshot_1721120450](https://github.com/user-attachments/assets/a8dcbf0c-467b-4497-9e81-ebd561be627c)
+)
+![Edit Screen](![Screenshot_1721120490](https://github.com/user-attachments/assets/e78b9dc3-6b35-46d0-aa16-a768ed121652)
+)
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
