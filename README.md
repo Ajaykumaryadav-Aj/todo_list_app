@@ -16,9 +16,9 @@ A simple and intuitive to-do list application built with Flutter. This app allow
 
 <!-- Include some screenshots of your app here -->
 ![Home Screen](![Screenshot_1721120404](https://github.com/user-attachments/assets/c90cf860-1e56-4be6-b287-016190e8410e)
-)
+
 ![Add Task Screen](![Screenshot_1721120450](https://github.com/user-attachments/assets/a8dcbf0c-467b-4497-9e81-ebd561be627c)
-)
+
 ![Edit Screen](![Screenshot_1721120490](https://github.com/user-attachments/assets/e78b9dc3-6b35-46d0-aa16-a768ed121652)
-)
+
 
